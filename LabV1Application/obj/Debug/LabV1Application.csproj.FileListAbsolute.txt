@@ -1,0 +1,13 @@
+C:\Users\Mladen\source\repos\LabV1OOP\LabV1Application\bin\Debug\LabV1Application.exe.config
+C:\Users\Mladen\source\repos\LabV1OOP\LabV1Application\bin\Debug\LabV1Application.exe
+C:\Users\Mladen\source\repos\LabV1OOP\LabV1Application\bin\Debug\LabV1Application.pdb
+C:\Users\Mladen\source\repos\LabV1OOP\LabV1Application\bin\Debug\LabV1Data.dll
+C:\Users\Mladen\source\repos\LabV1OOP\LabV1Application\bin\Debug\LabV1Data.pdb
+C:\Users\Mladen\source\repos\LabV1OOP\LabV1Application\obj\Debug\LabV1Application.csprojAssemblyReference.cache
+C:\Users\Mladen\source\repos\LabV1OOP\LabV1Application\obj\Debug\LabV1Application.Properties.Resources.resources
+C:\Users\Mladen\source\repos\LabV1OOP\LabV1Application\obj\Debug\LabV1Application.csproj.GenerateResource.cache
+C:\Users\Mladen\source\repos\LabV1OOP\LabV1Application\obj\Debug\LabV1Application.csproj.CoreCompileInputs.cache
+C:\Users\Mladen\source\repos\LabV1OOP\LabV1Application\obj\Debug\LabV1Application.csproj.CopyComplete
+C:\Users\Mladen\source\repos\LabV1OOP\LabV1Application\obj\Debug\LabV1Application.exe
+C:\Users\Mladen\source\repos\LabV1OOP\LabV1Application\obj\Debug\LabV1Application.pdb
+C:\Users\Mladen\source\repos\LabV1OOP\LabV1Application\obj\Debug\LabV1Application.PrimaryForm.resources

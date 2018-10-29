@@ -1,0 +1,6 @@
+C:\Users\Mladen\source\repos\LabV1OOP\LabV1Data\bin\Debug\LabV1Data.dll
+C:\Users\Mladen\source\repos\LabV1OOP\LabV1Data\bin\Debug\LabV1Data.pdb
+C:\Users\Mladen\source\repos\LabV1OOP\LabV1Data\obj\Debug\LabV1Data.csprojAssemblyReference.cache
+C:\Users\Mladen\source\repos\LabV1OOP\LabV1Data\obj\Debug\LabV1Data.csproj.CoreCompileInputs.cache
+C:\Users\Mladen\source\repos\LabV1OOP\LabV1Data\obj\Debug\LabV1Data.dll
+C:\Users\Mladen\source\repos\LabV1OOP\LabV1Data\obj\Debug\LabV1Data.pdb
