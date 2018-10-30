@@ -12,21 +12,19 @@ namespace LabV1Data
         Processing,
         Complete
     }
-
+    
     public class Order : Object
     {
         #region Data
-
         private int _orderId;
         private DateTime _purchasedOn;
         private String _billToName;
         private String _shipToName;
         private double _income;
         private State _status;
-        #endregion Data
+        #endregion
 
         #region Properties
-
         public int OrderId
         {
             get { return _orderId; }
@@ -63,10 +61,9 @@ namespace LabV1Data
             set { _status = value; }
         }
 
-        #endregion Properies
+        #endregion 
 
         #region Constructors
-
         public Order()
         {
 
@@ -81,13 +78,65 @@ namespace LabV1Data
             _income = inc;
             _status = stat;
         }
+        #endregion
 
-        #endregion Constructors
-
+        #region Methods
         public override string ToString()
         {
             return _orderId + " " + _purchasedOn + " " + _billToName + " " + _shipToName + " " + _income + " " + _status;
         }
+
+        public bool IsInTimeFrame(DateTime dateFromTmp, DateTime dateToTmp)
+        {
+            return ( (_purchasedOn > dateFromTmp) && (_purchasedOn < dateToTmp) ) ? true : false;
+        }
+
+        public bool IsEqual(int idTmp,DateTime dateFromTmp,DateTime dateToTmp, Object statusObj)
+        {
+            bool condition1 = true;
+            bool condition2 = true;
+
+            if (statusObj != null) {
+                State statusTmp = ConvertStringToState(statusObj.ToString());
+                condition1 = (_status == statusTmp) ? true : false;
+            }
+
+            if ( idTmp != 1)
+            {
+                condition2 = (_orderId == idTmp) ? true : false;
+            }
+
+            return condition1 && condition2 && IsInTimeFrame(dateFromTmp, dateToTmp);
+        }
+
+        public static State ConvertStringToState(string statusTmp)
+        {
+            State toReturn = State.Pending;
+            switch (statusTmp)
+            {
+                case "Pending":
+                    toReturn = State.Pending;
+                    break;
+                case "Processing":
+                    toReturn = State.Processing;
+                    break;
+                case "Complete":
+                    toReturn = State.Complete;
+                    break;
+                default:
+                    break;
+            }
+            return toReturn;
+        }
+
+        public void SaveOrderToFile(string filePath)
+        {
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(filePath))
+            {
+                file.WriteLine(this.ToString());
+            }
+        }
+        #endregion
     }
 
 

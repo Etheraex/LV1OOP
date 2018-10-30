@@ -8,13 +8,18 @@ namespace LabV1Data
 {
     public class OrderList
     {
+        #region Date
         private List<Order> _orderList;
+        #endregion
 
+        #region Properies
         public List<Order> Orders
         {
             get { return _orderList; }
         }
+        #endregion
 
+        #region Constructors
         private OrderList()
         {
             _orderList = new List<Order>();
@@ -24,7 +29,9 @@ namespace LabV1Data
         {
             _orderList.Add(o);
         }
+        #endregion
 
+        #region Methods
         public void LoadFromFile(String filePath)
         {
             using (System.IO.StreamReader file = new System.IO.StreamReader(filePath))
@@ -49,20 +56,8 @@ namespace LabV1Data
                     kupacTmp = razdeli[4] + " " + razdeli[5];
                     primaocTmp = razdeli[6] + " " + razdeli[7];
                     zaradaTmp = double.Parse(razdeli[8]);
-                    switch (razdeli[9])
-                    {
-                        case "Pending":
-                            stanjeTmp = State.Pending;
-                            break;
-                        case "Complete":
-                            stanjeTmp = State.Complete;
-                            break;
-                        case "Processing":
-                            stanjeTmp = State.Processing;
-                            break;
-                        default:
-                            break;
-                    }
+                    stanjeTmp = Order.ConvertStringToState(razdeli[9]);
+
                     SingleInstance.AddOrder(new Order(idTmp, kupljenoTmp, kupacTmp, primaocTmp, zaradaTmp, stanjeTmp));
                 }
             }
@@ -87,6 +82,6 @@ namespace LabV1Data
                 return _singleInstance;
             }
         }
-
+        #endregion
     }
 }

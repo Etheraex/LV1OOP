@@ -50,6 +50,7 @@
             this.btnExportList = new System.Windows.Forms.Button();
             this.btnImportList = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.cmbState = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrderList)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -72,6 +73,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.cmbState);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.txtBoxDateTo);
             this.panel1.Controls.Add(this.txtBoxDateFrom);
@@ -127,6 +129,7 @@
             this.btnResetFilters.TabIndex = 5;
             this.btnResetFilters.Text = "Reset Filters";
             this.btnResetFilters.UseVisualStyleBackColor = true;
+            this.btnResetFilters.Click += new System.EventHandler(this.btnResetFilters_Click);
             // 
             // btnFilter
             // 
@@ -136,6 +139,7 @@
             this.btnFilter.TabIndex = 4;
             this.btnFilter.Text = "Filter";
             this.btnFilter.UseVisualStyleBackColor = true;
+            this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
             // 
             // panel2
             // 
@@ -271,6 +275,18 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // cmbState
+            // 
+            this.cmbState.FormattingEnabled = true;
+            this.cmbState.Items.AddRange(new object[] {
+            "Pending",
+            "Processing",
+            "Complete"});
+            this.cmbState.Location = new System.Drawing.Point(392, 16);
+            this.cmbState.Name = "cmbState";
+            this.cmbState.Size = new System.Drawing.Size(121, 21);
+            this.cmbState.TabIndex = 4;
+            // 
             // PrimaryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -320,6 +336,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.ComboBox cmbState;
     }
 }
 
