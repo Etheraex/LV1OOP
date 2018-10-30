@@ -70,6 +70,7 @@
             this.dgvOrderList.ReadOnly = true;
             this.dgvOrderList.Size = new System.Drawing.Size(787, 281);
             this.dgvOrderList.TabIndex = 0;
+            this.dgvOrderList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvOrderList_DataBindingComplete);
             // 
             // panel1
             // 
@@ -175,15 +176,17 @@
             this.btnExportItem.TabIndex = 6;
             this.btnExportItem.Text = "Export to file";
             this.btnExportItem.UseVisualStyleBackColor = true;
+            this.btnExportItem.Click += new System.EventHandler(this.btnExportItem_Click);
             // 
             // btnComplete
             // 
-            this.btnComplete.Location = new System.Drawing.Point(556, 7);
+            this.btnComplete.Location = new System.Drawing.Point(562, 7);
             this.btnComplete.Name = "btnComplete";
             this.btnComplete.Size = new System.Drawing.Size(75, 23);
             this.btnComplete.TabIndex = 5;
             this.btnComplete.Text = "->Complete";
             this.btnComplete.UseVisualStyleBackColor = true;
+            this.btnComplete.Click += new System.EventHandler(this.btnComplete_Click);
             // 
             // btnProcessing
             // 
@@ -193,6 +196,7 @@
             this.btnProcessing.TabIndex = 4;
             this.btnProcessing.Text = "->Processing";
             this.btnProcessing.UseVisualStyleBackColor = true;
+            this.btnProcessing.Click += new System.EventHandler(this.btnProcessing_Click);
             // 
             // btnPending
             // 
@@ -202,6 +206,7 @@
             this.btnPending.TabIndex = 3;
             this.btnPending.Text = "->Pending";
             this.btnPending.UseVisualStyleBackColor = true;
+            this.btnPending.Click += new System.EventHandler(this.btnPending_Click);
             // 
             // btnDelete
             // 
@@ -211,6 +216,7 @@
             this.btnDelete.TabIndex = 2;
             this.btnDelete.Text = "DELETE";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnEdit
             // 
@@ -220,6 +226,7 @@
             this.btnEdit.TabIndex = 1;
             this.btnEdit.Text = "EDIT";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnAdd
             // 
@@ -229,6 +236,7 @@
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "ADD";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // panel3
             // 

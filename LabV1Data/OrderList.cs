@@ -9,17 +9,22 @@ namespace LabV1Data
     public class OrderList
     {
         #region Date
+
         private List<Order> _orderList;
+
         #endregion
 
         #region Properies
+
         public List<Order> Orders
         {
             get { return _orderList; }
         }
+
         #endregion
 
         #region Constructors
+
         private OrderList()
         {
             _orderList = new List<Order>();
@@ -29,9 +34,11 @@ namespace LabV1Data
         {
             _orderList.Add(o);
         }
+
         #endregion
 
         #region Methods
+
         public void LoadFromFile(String filePath)
         {
             using (System.IO.StreamReader file = new System.IO.StreamReader(filePath))
@@ -72,6 +79,16 @@ namespace LabV1Data
             }
         }
 
+        public void RemoveOrderAt(int index)
+        {
+            _orderList.RemoveAt(index);
+        }
+
+        public void RemoveAllOrders()
+        {
+            _orderList.Clear();
+        }
+
         private static OrderList _singleInstance = null;
         public static OrderList SingleInstance
         {
@@ -82,6 +99,7 @@ namespace LabV1Data
                 return _singleInstance;
             }
         }
+
         #endregion
     }
 }

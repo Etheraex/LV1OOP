@@ -54,6 +54,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SecondaryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SecondaryForm.Designer.cs">
+      <DependentUpon>SecondaryForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="PrimaryForm.resx">
       <DependentUpon>PrimaryForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -66,6 +72,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SecondaryForm.resx">
+      <DependentUpon>SecondaryForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

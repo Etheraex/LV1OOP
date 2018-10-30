@@ -16,15 +16,18 @@ namespace LabV1Data
     public class Order : Object
     {
         #region Data
+
         private int _orderId;
         private DateTime _purchasedOn;
         private String _billToName;
         private String _shipToName;
         private double _income;
         private State _status;
+
         #endregion
 
         #region Properties
+
         public int OrderId
         {
             get { return _orderId; }
@@ -64,6 +67,7 @@ namespace LabV1Data
         #endregion 
 
         #region Constructors
+
         public Order()
         {
 
@@ -78,9 +82,11 @@ namespace LabV1Data
             _income = inc;
             _status = stat;
         }
+
         #endregion
 
         #region Methods
+
         public override string ToString()
         {
             return _orderId + " " + _purchasedOn + " " + _billToName + " " + _shipToName + " " + _income + " " + _status;
@@ -131,11 +137,12 @@ namespace LabV1Data
 
         public void SaveOrderToFile(string filePath)
         {
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(filePath))
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(filePath, true))
             {
                 file.WriteLine(this.ToString());
             }
         }
+
         #endregion
     }
 
