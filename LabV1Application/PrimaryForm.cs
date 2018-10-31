@@ -178,8 +178,7 @@ namespace LabV1Application
         {
             dgvOrderList.ClearSelection();
         }
+
         #endregion
-
-
     }
 }

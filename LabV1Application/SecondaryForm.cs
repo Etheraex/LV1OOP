@@ -16,5 +16,10 @@ namespace LabV1Application
         {
             InitializeComponent();
         }
+
+        private void SecondaryForm_Load(object sender, EventArgs e)
+        {
+            comboBox1.SelectedText = "Pending";
+        }
     }
 }
