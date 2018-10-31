@@ -73,11 +73,15 @@ namespace LabV1Application
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (dgvOrderList.SelectedRows.Count != 0)
+            if (dgvOrderList.SelectedRows.Count == 1)
             {
-                SecondaryForm blankForm = new SecondaryForm();
+                SecondaryForm blankForm = new SecondaryForm(int.Parse(dgvOrderList.SelectedRows[0].Index.ToString()));
                 blankForm.Show();
             }
+            else if (dgvOrderList.SelectedRows.Count == 0)
+                MessageBox.Show("Nije selektovan nijedan red", "Error");
+            else
+                MessageBox.Show("Selektovano previse redova","Error");
         }
 
         // Brisanje selektovanih redova u DataGrida
@@ -141,15 +145,14 @@ namespace LabV1Application
         private void btnExportList_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(openFileDialog1.FileName))
+            for (int i = 0; i < dgvOrderList.RowCount; i++)
             {
-                for (int i = 0; i < dgvOrderList.Rows.Count; i++)
-                {
-                    for (int j = 0; j < dgvOrderList.ColumnCount; j++)
-                        file.Write(dgvOrderList.Rows[i].Cells[j].Value.ToString() + " ");
-                    file.WriteLine();
-                }
-
+                for (int j = 0; j < OrderList.SingleInstance.Orders.Count; j++)
+                    if (OrderList.SingleInstance.Orders[j].CheckId(int.Parse(dgvOrderList.Rows[i].Cells[0].Value.ToString())))
+                    {
+                        OrderList.SingleInstance.Orders[j].SaveOrderToFile(openFileDialog1.FileName);
+                        break;
+                    }
             }
         }
 

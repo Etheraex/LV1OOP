@@ -43,29 +43,35 @@ namespace LabV1Data
         {
             using (System.IO.StreamReader file = new System.IO.StreamReader(filePath))
             {
-                string ucitaj;
-                string[] razdeli;
+                string loadString;
+                string[] splitStrings;
 
                 int idTmp;
-                DateTime kupljenoTmp;
-                string kupacTmp;
-                string primaocTmp;
-                double zaradaTmp;
-                State stanjeTmp = State.Pending;
+                DateTime dateTmp;
+                double incomeTmp;
+                String nameTmp;
+                String addressTmp;
+                String countryTmp;
+                State statusTmp = State.Pending;
 
                 while (!file.EndOfStream)
                 {
-                    ucitaj = file.ReadLine();
-                    razdeli = ucitaj.Split(' ');
+                    loadString = file.ReadLine();
+                    nameTmp = file.ReadLine();
+                    addressTmp = file.ReadLine();
+                    countryTmp = file.ReadLine();
+                    splitStrings = loadString.Split(' ');
 
-                    idTmp = int.Parse(razdeli[0]);
-                    kupljenoTmp = DateTime.ParseExact(razdeli[1] + " " + razdeli[2], "M/dd/yyyy H:mm:ss", null);
-                    kupacTmp = razdeli[4] + " " + razdeli[5];
-                    primaocTmp = razdeli[6] + " " + razdeli[7];
-                    zaradaTmp = double.Parse(razdeli[8]);
-                    stanjeTmp = Order.ConvertStringToState(razdeli[9]);
-
-                    SingleInstance.AddOrder(new Order(idTmp, kupljenoTmp, kupacTmp, primaocTmp, zaradaTmp, stanjeTmp));
+                    idTmp = int.Parse(splitStrings[0]);
+                    dateTmp = DateTime.ParseExact(splitStrings[1] + " " + splitStrings[2], "M/dd/yyyy H:mm:ss", null);
+                    incomeTmp = double.Parse(splitStrings[4]);
+                    statusTmp = Order.ConvertStringToState(splitStrings[5]);
+                    int i = 0;
+                    for (; i < Orders.Count; i++)
+                        if (Orders[i].CheckId(idTmp))
+                            break;
+                    if(i == Orders.Count)
+                        SingleInstance.AddOrder(new Order(idTmp, dateTmp, incomeTmp, statusTmp, nameTmp,addressTmp,countryTmp));
                 }
             }
         }

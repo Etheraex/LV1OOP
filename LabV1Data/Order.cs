@@ -19,8 +19,7 @@ namespace LabV1Data
 
         private int _orderId;
         private DateTime _purchasedOn;
-        private String _billToName;
-        private String _shipToName;
+        private Customer _customer;
         private double _income;
         private State _status;
 
@@ -42,14 +41,12 @@ namespace LabV1Data
 
         public String BillToName
         {
-            get { return _billToName; }
-            set { _billToName = value; }
+            get { return _customer.Name; }
         }
 
         public String ShipToName
         {
-            get { return _shipToName; }
-            set { _shipToName = value; }
+            get { return _customer.Name; }
         }
 
         public double Income
@@ -73,14 +70,13 @@ namespace LabV1Data
 
         }
 
-        public Order(int id, DateTime orderDate, String billTo, String shipTo, double inc, State stat)
+        public Order(int id, DateTime orderDate, double inc, State stat, String name, String address, String country)
         {
             _orderId = id;
             _purchasedOn = orderDate;
-            _billToName = billTo;
-            _shipToName = shipTo;
             _income = inc;
             _status = stat;
+            _customer = new Customer(name, address, country);
         }
 
         #endregion
@@ -89,12 +85,17 @@ namespace LabV1Data
 
         public override string ToString()
         {
-            return _orderId + " " + _purchasedOn + " " + _billToName + " " + _shipToName + " " + _income + " " + _status;
+            return _orderId + " " + _purchasedOn + " " + _income + " " + _status +  "\r\n" + _customer.ToString();
         }
 
         public bool IsInTimeFrame(DateTime dateFromTmp, DateTime dateToTmp)
         {
-            return ( (_purchasedOn > dateFromTmp) && (_purchasedOn < dateToTmp) ) ? true : false;
+            return ( (_purchasedOn >= dateFromTmp) && (_purchasedOn <= dateToTmp) ) ? true : false;
+        }
+
+        public bool CheckId(int x)
+        {
+            return (_orderId == x) ? true : false;
         }
 
         public bool IsEqual(int idTmp,DateTime dateFromTmp,DateTime dateToTmp, Object statusObj)
@@ -109,7 +110,7 @@ namespace LabV1Data
 
             if ( idTmp != 1)
             {
-                condition2 = (_orderId == idTmp) ? true : false;
+                condition2 = CheckId(idTmp);
             }
 
             return condition1 && condition2 && IsInTimeFrame(dateFromTmp, dateToTmp);
@@ -141,6 +142,11 @@ namespace LabV1Data
             {
                 file.WriteLine(this.ToString());
             }
+        }
+
+        public String GetCustomerInfo()
+        {
+            return _customer.ToString();
         }
 
         #endregion
