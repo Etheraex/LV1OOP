@@ -16,6 +16,7 @@ namespace LabV1Application
         public SecondaryForm()
         {
             InitializeComponent();
+            comboBox1.SelectedIndex = 0;
         }
 
         public SecondaryForm(int selectedData)
@@ -23,12 +24,19 @@ namespace LabV1Application
             InitializeComponent();
             txtBoxOrderID.Text = OrderList.SingleInstance.Orders[selectedData].OrderId.ToString();
             txtBoxOrderDate.Text = OrderList.SingleInstance.Orders[selectedData].PurchasedOn.ToString();
+            switch (OrderList.SingleInstance.Orders[selectedData].Status.ToString())
+            {
+                case "Pending":
+                    comboBox1.SelectedIndex = 0;
+                    break;
+                case "Processing":
+                    comboBox1.SelectedIndex = 1;
+                    break;
+                case "Complete":
+                    comboBox1.SelectedIndex = 2;
+                    break;
+            }
             rchTxtBoxCustomer.Text = OrderList.SingleInstance.Orders[selectedData].GetCustomerInfo();
-        }
-
-        private void SecondaryForm_Load(object sender, EventArgs e)
-        {
-            comboBox1.SelectedText = "Pending";
         }
 
         private void btnOK_Click(object sender, EventArgs e)

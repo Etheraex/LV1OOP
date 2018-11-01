@@ -70,13 +70,13 @@ namespace LabV1Data
 
         }
 
-        public Order(int id, DateTime orderDate, double inc, State stat, String name, String address, String country)
+        public Order(int id, DateTime orderDate, double inc, State stat, Customer cust)
         {
             _orderId = id;
             _purchasedOn = orderDate;
             _income = inc;
             _status = stat;
-            _customer = new Customer(name, address, country);
+            _customer = cust;
         }
 
         #endregion
@@ -136,13 +136,33 @@ namespace LabV1Data
             return toReturn;
         }
 
-        public void SaveOrderToFile(string filePath)
+        public void SaveOrderToFile(System.IO.StreamWriter file)
         {
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(filePath, true))
-            {
-                file.WriteLine(this.ToString());
-            }
+            file.WriteLine(this.ToString());
         }
+
+        public static Order ReadOrderFromFile(System.IO.StreamReader file)
+        {
+            string loadString = file.ReadLine();
+            string[] splitStrings;
+            int idTmp;
+            DateTime dateTmp;
+            double incomeTmp;
+            State statusTmp = State.Pending;
+
+            splitStrings = loadString.Split(' ');
+
+            idTmp = int.Parse(splitStrings[0]);
+            dateTmp = DateTime.ParseExact(splitStrings[1] + " " + splitStrings[2], "M/dd/yyyy H:mm:ss", null);
+            incomeTmp = double.Parse(splitStrings[4]);
+            statusTmp = Order.ConvertStringToState(splitStrings[5]);
+
+            Customer customerTmp = Customer.ReadCustomerFromFile(file);
+
+            Order orderTmp = new Order(idTmp, dateTmp,incomeTmp,statusTmp, customerTmp);
+            return orderTmp;
+        }
+
 
         public String GetCustomerInfo()
         {
@@ -151,6 +171,4 @@ namespace LabV1Data
 
         #endregion
     }
-
-
 }

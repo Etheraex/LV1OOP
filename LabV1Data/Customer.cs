@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LabV1Data
 {
-    class Customer
+    public class Customer : Object
     {
         #region Data
 
@@ -49,5 +49,15 @@ namespace LabV1Data
         {
             return _name + "\r\n"+_streetAddress + "\r\n" + _cityCountry;
         }
+
+        public static Customer ReadCustomerFromFile(System.IO.StreamReader file)
+        {
+            String nameTmp = file.ReadLine();
+            String addressTmp = file.ReadLine();
+            String countryTmp = file.ReadLine();
+
+            return new Customer(nameTmp, addressTmp, countryTmp);
+        }
+
     }
 }

@@ -43,46 +43,23 @@ namespace LabV1Data
         {
             using (System.IO.StreamReader file = new System.IO.StreamReader(filePath))
             {
-                string loadString;
-                string[] splitStrings;
-
-                int idTmp;
-                DateTime dateTmp;
-                double incomeTmp;
-                String nameTmp;
-                String addressTmp;
-                String countryTmp;
-                State statusTmp = State.Pending;
-
                 while (!file.EndOfStream)
                 {
-                    loadString = file.ReadLine();
-                    nameTmp = file.ReadLine();
-                    addressTmp = file.ReadLine();
-                    countryTmp = file.ReadLine();
-                    splitStrings = loadString.Split(' ');
-
-                    idTmp = int.Parse(splitStrings[0]);
-                    dateTmp = DateTime.ParseExact(splitStrings[1] + " " + splitStrings[2], "M/dd/yyyy H:mm:ss", null);
-                    incomeTmp = double.Parse(splitStrings[4]);
-                    statusTmp = Order.ConvertStringToState(splitStrings[5]);
+                    Order orderTmp = Order.ReadOrderFromFile(file);
                     int i = 0;
                     for (; i < Orders.Count; i++)
-                        if (Orders[i].CheckId(idTmp))
+                        if (Orders[i].CheckId(orderTmp.OrderId))
                             break;
                     if(i == Orders.Count)
-                        SingleInstance.AddOrder(new Order(idTmp, dateTmp, incomeTmp, statusTmp, nameTmp,addressTmp,countryTmp));
+                        SingleInstance.AddOrder(orderTmp);
                 }
             }
         }
 
-        public void SaveToFile(String filePath)
+        public void SaveToFile(System.IO.StreamWriter file)
         {
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(filePath))
-            {
-                foreach (Order o in _orderList)
-                    file.WriteLine(o.ToString());
-            }
+            foreach (Order o in _orderList)
+                o.SaveOrderToFile(file);
         }
 
         public void RemoveOrderAt(int index)

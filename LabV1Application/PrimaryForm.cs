@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LabV1Data;
+using System.IO;
+
 
 namespace LabV1Application
 {
@@ -122,9 +124,11 @@ namespace LabV1Application
             if (dgvOrderList.SelectedRows.Count != 0)
             {
                 openFileDialog1.ShowDialog();
-                string fileName = openFileDialog1.FileName;
-                for (int i = 0; i < dgvOrderList.SelectedRows.Count; i++)
-                    OrderList.SingleInstance.Orders[dgvOrderList.SelectedRows[i].Index].SaveOrderToFile(fileName);
+                using (StreamWriter file = new StreamWriter(openFileDialog1.FileName))
+                {
+                    for (int i = 0; i < dgvOrderList.SelectedRows.Count; i++)
+                        OrderList.SingleInstance.Orders[dgvOrderList.SelectedRows[i].Index].SaveOrderToFile(file);
+                }
             }
         }
 
@@ -145,14 +149,14 @@ namespace LabV1Application
         private void btnExportList_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
-            for (int i = 0; i < dgvOrderList.RowCount; i++)
+            using (StreamWriter file = new StreamWriter(openFileDialog1.FileName))
             {
-                for (int j = 0; j < OrderList.SingleInstance.Orders.Count; j++)
-                    if (OrderList.SingleInstance.Orders[j].CheckId(int.Parse(dgvOrderList.Rows[i].Cells[0].Value.ToString())))
-                    {
-                        OrderList.SingleInstance.Orders[j].SaveOrderToFile(openFileDialog1.FileName);
-                        break;
-                    }
+                List<int> tmp = new List<int>();
+                for (int i = 0; i < dgvOrderList.RowCount; i++)
+                    tmp.Add(int.Parse(dgvOrderList.Rows[i].Cells[0].Value.ToString()));
+                foreach (Order o in OrderList.SingleInstance.Orders)
+                    if (tmp.Contains(o.OrderId))
+                        o.SaveOrderToFile(file);
             }
         }
 

@@ -151,6 +151,7 @@
             this.txtBoxOrderDate.Name = "txtBoxOrderDate";
             this.txtBoxOrderDate.Size = new System.Drawing.Size(140, 20);
             this.txtBoxOrderDate.TabIndex = 11;
+            this.txtBoxOrderDate.TabStop = false;
             this.txtBoxOrderDate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtBoxOrderID
@@ -358,7 +359,6 @@
             this.MinimumSize = new System.Drawing.Size(479, 628);
             this.Name = "SecondaryForm";
             this.Text = "SecondaryForm";
-            this.Load += new System.EventHandler(this.SecondaryForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
