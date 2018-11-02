@@ -123,12 +123,13 @@ namespace LabV1Application
         {
             if (dgvOrderList.SelectedRows.Count != 0)
             {
-                openFileDialog1.ShowDialog();
-                using (StreamWriter file = new StreamWriter(openFileDialog1.FileName))
-                {
-                    for (int i = 0; i < dgvOrderList.SelectedRows.Count; i++)
-                        OrderList.SingleInstance.Orders[dgvOrderList.SelectedRows[i].Index].SaveOrderToFile(file);
-                }
+                DialogResult dr= openFileDialog1.ShowDialog();
+                if (dr == DialogResult.OK)
+                    using (StreamWriter file = new StreamWriter(openFileDialog1.FileName))
+                    {
+                        for (int i = 0; i < dgvOrderList.SelectedRows.Count; i++)
+                            OrderList.SingleInstance.Orders[dgvOrderList.SelectedRows[i].Index].SaveOrderToFile(file);
+                    }
             }
         }
 
@@ -140,24 +141,29 @@ namespace LabV1Application
         private void btnImportList_Click(object sender, EventArgs e)
         {
             OrderList.SingleInstance.RemoveAllOrders();
-            openFileDialog1.ShowDialog();
-            OrderList.SingleInstance.LoadFromFile(openFileDialog1.FileName);
-            dgvOrderList.DataSource = OrderList.SingleInstance.Orders.ToList();
+            DialogResult dr = openFileDialog1.ShowDialog();
+            if(dr == DialogResult.OK)
+                using (StreamReader file = new StreamReader(openFileDialog1.FileName))
+                {
+                    OrderList.SingleInstance.LoadFromFile(file);
+                    dgvOrderList.DataSource = OrderList.SingleInstance.Orders.ToList();
+                }
         }
 
         // Ispisivanje celog trenutnog datagrida u fajl
         private void btnExportList_Click(object sender, EventArgs e)
         {
-            openFileDialog1.ShowDialog();
-            using (StreamWriter file = new StreamWriter(openFileDialog1.FileName))
-            {
-                List<int> tmp = new List<int>();
-                for (int i = 0; i < dgvOrderList.RowCount; i++)
-                    tmp.Add(int.Parse(dgvOrderList.Rows[i].Cells[0].Value.ToString()));
-                foreach (Order o in OrderList.SingleInstance.Orders)
-                    if (tmp.Contains(o.OrderId))
-                        o.SaveOrderToFile(file);
-            }
+            DialogResult dr = openFileDialog1.ShowDialog();
+            if(dr == DialogResult.OK)
+                using (StreamWriter file = new StreamWriter(openFileDialog1.FileName))
+                {
+                    List<int> tmp = new List<int>();
+                    for (int i = 0; i < dgvOrderList.RowCount; i++)
+                        tmp.Add(int.Parse(dgvOrderList.Rows[i].Cells[0].Value.ToString()));
+                    foreach (Order o in OrderList.SingleInstance.Orders)
+                        if (tmp.Contains(o.OrderId))
+                            o.SaveOrderToFile(file);
+                }
         }
 
         #endregion

@@ -13,6 +13,8 @@ namespace LabV1Application
 {
     public partial class SecondaryForm : Form
     {
+        #region Init
+
         public SecondaryForm()
         {
             InitializeComponent();
@@ -36,8 +38,14 @@ namespace LabV1Application
                     comboBox1.SelectedIndex = 2;
                     break;
             }
-            rchTxtBoxCustomer.Text = OrderList.SingleInstance.Orders[selectedData].GetCustomerInfo();
+            txtBoxDateRequired.Text = OrderList.SingleInstance.Orders[selectedData].RequiredBefore.ToString();
+            txtBoxShipVia.Text = OrderList.SingleInstance.Orders[selectedData].ShippingCo;
+            txtBoxFreightCharges.Text = OrderList.SingleInstance.Orders[selectedData].FreightCharges.ToString();
+            rchTxtBoxCustomer.Text = OrderList.SingleInstance.Orders[selectedData].CustomerInfo;
+            dgvPackageList.DataSource = OrderList.SingleInstance.Orders[selectedData].PackageInfo;
         }
+
+        #endregion
 
         private void btnOK_Click(object sender, EventArgs e)
         {

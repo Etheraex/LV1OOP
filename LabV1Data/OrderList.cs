@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace LabV1Data
 {
@@ -39,24 +40,21 @@ namespace LabV1Data
 
         #region Methods
 
-        public void LoadFromFile(String filePath)
+        public void LoadFromFile(StreamReader file)
         {
-            using (System.IO.StreamReader file = new System.IO.StreamReader(filePath))
+            while (!file.EndOfStream)
             {
-                while (!file.EndOfStream)
-                {
-                    Order orderTmp = Order.ReadOrderFromFile(file);
-                    int i = 0;
-                    for (; i < Orders.Count; i++)
-                        if (Orders[i].CheckId(orderTmp.OrderId))
-                            break;
-                    if(i == Orders.Count)
-                        SingleInstance.AddOrder(orderTmp);
-                }
+                Order orderTmp = Order.ReadOrderFromFile(file);
+                int i = 0;
+                for (; i < Orders.Count; i++)
+                    if (Orders[i].CheckId(orderTmp.OrderId))
+                        break;
+                if (i == Orders.Count)
+                    SingleInstance.AddOrder(orderTmp);
             }
         }
 
-        public void SaveToFile(System.IO.StreamWriter file)
+        public void SaveToFile(StreamWriter file)
         {
             foreach (Order o in _orderList)
                 o.SaveOrderToFile(file);

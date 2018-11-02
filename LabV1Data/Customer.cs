@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace LabV1Data
 {
@@ -38,6 +39,8 @@ namespace LabV1Data
 
         #endregion
 
+        #region Constructors
+
         public Customer(String nameP, String addressP, String cityP)
         {
             _name = nameP;
@@ -45,12 +48,21 @@ namespace LabV1Data
             _cityCountry = cityP;
         }
 
+        #endregion
+
+        #region Methods
+
         public override string ToString()
         {
-            return _name + "\r\n"+_streetAddress + "\r\n" + _cityCountry;
+            return _name + "\r\n" +_streetAddress + "\r\n" + _cityCountry;
         }
 
-        public static Customer ReadCustomerFromFile(System.IO.StreamReader file)
+        public void SaveToFile(StreamWriter file)
+        {
+            file.WriteLine(this.ToString());
+        }
+
+        public static Customer ReadFromFile(StreamReader file)
         {
             String nameTmp = file.ReadLine();
             String addressTmp = file.ReadLine();
@@ -58,6 +70,8 @@ namespace LabV1Data
 
             return new Customer(nameTmp, addressTmp, countryTmp);
         }
+
+        #endregion
 
     }
 }
