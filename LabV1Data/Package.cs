@@ -54,12 +54,6 @@ namespace LabV1Data
             _info = itemInfo;
             _quantity = quantity;
         }
-        
-        public Package(String name,double price,int count)
-        {
-            _info = new Item(name, price);
-            _quantity = count;
-        }
 
         #endregion
 

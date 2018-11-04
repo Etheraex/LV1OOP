@@ -81,11 +81,6 @@ namespace LabV1Data
             }
         }
 
-        public void ReplaceItem(int i, Order o)
-        {
-            _orderList[i] = o;
-        }
-
         #endregion
-        }
     }
+}
