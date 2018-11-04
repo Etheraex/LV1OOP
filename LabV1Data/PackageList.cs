@@ -40,6 +40,11 @@ namespace LabV1Data
 
         #region Constructors
 
+        public PackageList()
+        {
+            _packageList = new List<Package>();
+        }
+
         public PackageList(List<Package> tmp)
         {
             _packageList = tmp;
@@ -48,6 +53,11 @@ namespace LabV1Data
         #endregion
         
         #region Methods
+
+        public void AddPackage(Package p)
+        {
+            _packageList.Add(p);
+        }
 
         public void SaveToFile(StreamWriter file)
         {
