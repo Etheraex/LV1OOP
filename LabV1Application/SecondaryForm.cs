@@ -15,6 +15,8 @@ namespace LabV1Application
     {
         #region Init
 
+        List<Package> temp = new List<Package>();
+
         public SecondaryForm()
         {
             InitializeComponent();
@@ -43,18 +45,51 @@ namespace LabV1Application
             txtBoxFreightCharges.Text = OrderList.SingleInstance.Orders[selectedData].FreightCharges.ToString();
             rchTxtBoxCustomer.Text = OrderList.SingleInstance.Orders[selectedData].CustomerInfo;
             dgvPackageList.DataSource = OrderList.SingleInstance.Orders[selectedData].PackageInfo;
+            txtBoxDateShipped.Text = OrderList.SingleInstance.Orders[selectedData].ShippedDate.ToString();
         }
 
         #endregion
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            this.Close();
+            int idTmp;
+            DateTime orderDateTmp;
+            DateTime requiredDateTmp;
+
+
+
+            if (!int.TryParse(txtBoxOrderID.Text, out idTmp) || txtBoxOrderID.Text.Length != 8)
+                txtBoxOrderID.ForeColor = Color.Red;
+            if (!DateTime.TryParse(txtBoxOrderDate.Text, out orderDateTmp))
+                txtBoxOrderDate.ForeColor = Color.Red;
+            if (!DateTime.TryParse(txtBoxDateRequired.Text, out requiredDateTmp))
+                txtBoxDateRequired.ForeColor = Color.Red;
+            if (txtBoxShipVia.Text == "")
+                txtBoxShipVia.BackColor = Color.Red;
+
+
+            //this.Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnAddItem_Click(object sender, EventArgs e)
+        {
+            using (ItemForm a = new ItemForm())
+            {
+                if (a.ShowDialog() == DialogResult.OK)
+                {
+                    String nameTmp = a.ItemName;
+                    double priceTmp = a.ItemPrice;
+                    int quantTmp = a.ItemQuantity;
+                    Package packageTmp = new Package(new Item(nameTmp, priceTmp), quantTmp);
+                    temp.Add(packageTmp);
+                    dgvPackageList.DataSource = temp;
+                }
+            }
         }
     }
 }

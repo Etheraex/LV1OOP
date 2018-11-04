@@ -20,13 +20,13 @@ namespace LabV1Data
 
         #region Properties
 
-        [DisplayName("Name")]
+        [DisplayName("Product name")]
         public String ItemName
         {
             get { return _info.ItemName; }
         }
 
-        [DisplayName("Item Price")]
+        [DisplayName("Unit price")]
         public double ItemPrice
         {
             get { return _info.Price; }
