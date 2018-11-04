@@ -12,4 +12,3 @@ C:\Users\Mladen\source\repos\LabV1OOP\LabV1Application\obj\Debug\LabV1Applicatio
 C:\Users\Mladen\source\repos\LabV1OOP\LabV1Application\obj\Debug\LabV1Application.pdb
 C:\Users\Mladen\source\repos\LabV1OOP\LabV1Application\obj\Debug\LabV1Application.PrimaryForm.resources
 C:\Users\Mladen\source\repos\LabV1OOP\LabV1Application\obj\Debug\LabV1Application.SecondaryForm.resources
-C:\Users\Mladen\source\repos\LabV1OOP\LabV1Application\obj\Debug\LabV1Application.ItemForm.resources

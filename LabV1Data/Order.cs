@@ -111,18 +111,6 @@ namespace LabV1Data
             get { return _packages.Packages; }
         }
 
-        [Browsable(false)]
-        public String ShippedDate
-        {
-            get
-            {
-                if (_shippedOn == DateTime.MinValue)
-                    return "";
-                else
-                    return _shippedOn.ToString();
-            }
-        }
-
         #endregion 
 
         #region Constructors
@@ -132,7 +120,7 @@ namespace LabV1Data
 
         }
 
-        public Order(int id, DateTime orderDate, DateTime requiredDate, double freightCharges, State stat, Customer cust, PackageList packages, String shipCo="", DateTime? shippedOn = null)
+        public Order(int id, DateTime orderDate, DateTime requiredDate, double freightCharges, State stat, Customer cust, PackageList packages, String shipCo)
         {
             _orderId = id;
             _purchasedOn = orderDate;
@@ -142,10 +130,6 @@ namespace LabV1Data
             _requiredBefore = requiredDate;
             _freightCharges = freightCharges;
             _shippingCo = shipCo;
-            if (shippedOn != null)
-                _shippedOn = DateTime.Parse(shippedOn.ToString());
-            else
-                _shippedOn = DateTime.MinValue;
         }
 
         #endregion
@@ -154,7 +138,7 @@ namespace LabV1Data
         
         public override string ToString()
         {
-            return _orderId + " " + _purchasedOn + " " + _requiredBefore + " " + _freightCharges + " " + _status + "\r\n"+ _shippedOn + "\r\n" + _shippingCo;
+            return _orderId + " " + _purchasedOn + " " + _requiredBefore + " " + _freightCharges + " " + _status + "\r\n" + _shippingCo;
         }
 
         public bool IsInTimeFrame(DateTime dateFromTmp, DateTime dateToTmp)
@@ -217,31 +201,26 @@ namespace LabV1Data
         {
             String skip = file.ReadLine();
             String loadString = file.ReadLine();
+            String shipCoTmp = file.ReadLine();
             String[] splitStrings;
             int idTmp;
             DateTime dateTmp;
             DateTime dateReqTmp;
             double freightTmp;
             State statusTmp = State.Pending;
-            String readDateShipped;
-            DateTime dateShipped;
 
             splitStrings = loadString.Split(' ');
 
             idTmp = int.Parse(splitStrings[0]);
-            dateTmp = DateTime.ParseExact(splitStrings[1] + " " + splitStrings[2], "M/d/yyyy H:mm:ss", null);
-            dateReqTmp = DateTime.ParseExact(splitStrings[4] + " " + splitStrings[5], "M/d/yyyy H:mm:ss", null);
+            dateTmp = DateTime.ParseExact(splitStrings[1] + " " + splitStrings[2], "M/dd/yyyy H:mm:ss", null);
+            dateReqTmp = DateTime.ParseExact(splitStrings[4] + " " + splitStrings[5], "M/dd/yyyy H:mm:ss", null);
             freightTmp = double.Parse(splitStrings[7]);
             statusTmp = Order.ConvertStringToState(splitStrings[8]);
-            readDateShipped = file.ReadLine();
-            String shipCoTmp = file.ReadLine();
-            if (!DateTime.TryParseExact(readDateShipped, "M/d/yyyy H:mm:ss tt", null, System.Globalization.DateTimeStyles.None, out dateShipped))
-                dateShipped = DateTime.MinValue;
 
             Customer customerTmp = Customer.ReadFromFile(file);
             PackageList packagesTmp = PackageList.ReadFromFile(file);
 
-            Order orderTmp = new Order(idTmp, dateTmp,dateReqTmp ,freightTmp, statusTmp, customerTmp, packagesTmp, shipCoTmp, dateShipped);
+            Order orderTmp = new Order(idTmp, dateTmp,dateReqTmp ,freightTmp, statusTmp, customerTmp, packagesTmp, shipCoTmp);
             return orderTmp;
         }
 

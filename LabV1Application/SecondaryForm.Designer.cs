@@ -34,6 +34,7 @@
             this.lblOrderId = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.txtBoxOrderDate = new System.Windows.Forms.TextBox();
             this.txtBoxOrderID = new System.Windows.Forms.TextBox();
             this.txtBoxDateRequired = new System.Windows.Forms.TextBox();
@@ -49,14 +50,9 @@
             this.rchTxtBoxCustomer = new System.Windows.Forms.RichTextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.dgvPackageList = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.btnAddItem = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -136,6 +132,18 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(494, 123);
             this.panel2.TabIndex = 10;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Pending",
+            "Processing",
+            "Complete"});
+            this.comboBox1.Location = new System.Drawing.Point(361, 85);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 12;
             // 
             // txtBoxOrderDate
             // 
@@ -300,32 +308,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvPackageList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvPackageList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPackageList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3});
             this.dgvPackageList.Location = new System.Drawing.Point(9, 368);
             this.dgvPackageList.Name = "dgvPackageList";
-            this.dgvPackageList.Size = new System.Drawing.Size(473, 227);
+            this.dgvPackageList.Size = new System.Drawing.Size(473, 171);
             this.dgvPackageList.TabIndex = 15;
-            // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "ItemName";
-            this.Column1.HeaderText = "Product name";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.DataPropertyName = "ItemPrice";
-            this.Column2.HeaderText = "Unit price";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.DataPropertyName = "Quantity";
-            this.Column3.HeaderText = "Quantity";
-            this.Column3.Name = "Column3";
             // 
             // btnOK
             // 
@@ -352,40 +338,17 @@
             this.panel4.Controls.Add(this.btnCancel);
             this.panel4.Controls.Add(this.btnOK);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(0, 630);
+            this.panel4.Location = new System.Drawing.Point(0, 545);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(494, 45);
             this.panel4.TabIndex = 17;
-            // 
-            // btnAddItem
-            // 
-            this.btnAddItem.Location = new System.Drawing.Point(407, 601);
-            this.btnAddItem.Name = "btnAddItem";
-            this.btnAddItem.Size = new System.Drawing.Size(75, 23);
-            this.btnAddItem.TabIndex = 19;
-            this.btnAddItem.Text = "Add item";
-            this.btnAddItem.UseVisualStyleBackColor = true;
-            this.btnAddItem.Click += new System.EventHandler(this.btnAddItem_Click);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Pending",
-            "Processing",
-            "Complete"});
-            this.comboBox1.Location = new System.Drawing.Point(361, 85);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 12;
             // 
             // SecondaryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(494, 675);
-            this.Controls.Add(this.btnAddItem);
+            this.ClientSize = new System.Drawing.Size(494, 590);
             this.Controls.Add(this.dgvPackageList);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.rchTxtBoxCustomer);
@@ -433,13 +396,9 @@
         private System.Windows.Forms.RichTextBox rchTxtBoxCustomer;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.DataGridView dgvPackageList;
+        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.Button btnAddItem;
-        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
