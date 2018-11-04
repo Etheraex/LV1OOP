@@ -70,14 +70,25 @@ namespace LabV1Application
         private void btnAdd_Click(object sender, EventArgs e)
         {
             SecondaryForm blankForm = new SecondaryForm();
-            blankForm.Show();
+            DialogResult dr = blankForm.ShowDialog();
+            if ( dr == DialogResult.OK)
+            {
+                Order o = blankForm.orderTmp;
+                OrderList.SingleInstance.AddOrder(o);
+            }
+            dgvOrderList.DataSource = OrderList.SingleInstance.Orders.ToList();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
             if (dgvOrderList.SelectedRows.Count == 1)
             {
-                SecondaryForm blankForm = new SecondaryForm(int.Parse(dgvOrderList.SelectedRows[0].Index.ToString()));
+                int i = 0;
+                for (; i < OrderList.SingleInstance.Orders.Count; i++)
+                    if (int.Parse(dgvOrderList.SelectedRows[0].Cells[0].Value.ToString()) == OrderList.SingleInstance.Orders[i].OrderId)
+                        break;
+
+                SecondaryForm blankForm = new SecondaryForm(i);
                 blankForm.Show();
             }
             else if (dgvOrderList.SelectedRows.Count == 0)
