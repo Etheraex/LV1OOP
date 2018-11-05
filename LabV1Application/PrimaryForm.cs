@@ -17,6 +17,8 @@ namespace LabV1Application
     {
         #region Init
 
+        public static Order orderTmp;
+
         public PrimaryForm()
         {
             InitializeComponent();
@@ -33,15 +35,12 @@ namespace LabV1Application
             DateTime dateToTmp = DateTime.Now;
             try
             {
-                // Ispitivanja validnosti unesenih parametara za pretragu 
-                // i ispitivanje da li je nekom parametru ostavljena defaultna vrednost
-                // u kom slucaju se prihvataju sve vrednosti za taj parametar
                 if (txtBoxOrderID.Text != "OrderID" && !int.TryParse(txtBoxOrderID.Text, out idTmp))
                     throw new Exception("Pogresan format ID-a");
-                if (txtBoxDateFrom.Text != "MM/DD/YYYY" && !DateTime.TryParse(txtBoxDateFrom.Text, out dateFromTmp))
-                    throw new Exception("Pogresan format prvog datuma");
-                if (txtBoxDateTo.Text != "MM/DD/YYYY" && !DateTime.TryParse(txtBoxDateTo.Text, out dateToTmp))
-                    throw new Exception("Pogresan format drugog datuma");
+                if (dtpDateFrom.Checked)
+                    dateFromTmp = DateTime.Parse(dtpDateFrom.Value.ToString());
+                if (dtpDateTo.Checked)
+                    dateToTmp = DateTime.Parse(dtpDateTo.Value.ToString());
 
                 dgvOrderList.DataSource = OrderList.SingleInstance.Orders.ToList().Where(x => x.IsEqual(idTmp, dateFromTmp, dateToTmp, cmbState.SelectedItem)).ToList();
 
@@ -56,8 +55,8 @@ namespace LabV1Application
         private void btnResetFilters_Click(object sender, EventArgs e)
         {
             txtBoxOrderID.Text = "OrderID";
-            txtBoxDateTo.Text = "MM/DD/YYYY";
-            txtBoxDateFrom.Text = "MM/DD/YYYY";
+            dtpDateFrom.Checked = false;
+            dtpDateTo.Checked = false;
             cmbState.SelectedItem = null;
 
             dgvOrderList.DataSource = OrderList.SingleInstance.Orders.ToList();
@@ -73,10 +72,9 @@ namespace LabV1Application
             DialogResult dr = blankForm.ShowDialog();
             if ( dr == DialogResult.OK)
             {
-                Order o = blankForm.orderTmp;
-                OrderList.SingleInstance.AddOrder(o);
+                OrderList.SingleInstance.AddOrder(orderTmp);
+                dgvOrderList.DataSource = OrderList.SingleInstance.Orders.ToList();
             }
-            dgvOrderList.DataSource = OrderList.SingleInstance.Orders.ToList();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -89,7 +87,12 @@ namespace LabV1Application
                         break;
 
                 SecondaryForm blankForm = new SecondaryForm(i);
-                blankForm.Show();
+                DialogResult dr = blankForm.ShowDialog();
+                if (dr == DialogResult.OK)
+                {
+                    OrderList.SingleInstance.ReplaceItem(i, orderTmp);
+                    dgvOrderList.DataSource = OrderList.SingleInstance.Orders.ToList();
+                }
             }
             else if (dgvOrderList.SelectedRows.Count == 0)
                 MessageBox.Show("Nije selektovan nijedan red", "Error");

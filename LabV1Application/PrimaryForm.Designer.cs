@@ -30,9 +30,8 @@
         {
             this.dgvOrderList = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cmbState = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtBoxDateTo = new System.Windows.Forms.TextBox();
-            this.txtBoxDateFrom = new System.Windows.Forms.TextBox();
             this.txtBoxOrderID = new System.Windows.Forms.TextBox();
             this.btnResetFilters = new System.Windows.Forms.Button();
             this.btnFilter = new System.Windows.Forms.Button();
@@ -50,9 +49,10 @@
             this.btnExportList = new System.Windows.Forms.Button();
             this.btnImportList = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.cmbState = new System.Windows.Forms.ComboBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
+            this.dtpDateFrom = new System.Windows.Forms.DateTimePicker();
+            this.dtpDateTo = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrderList)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -77,10 +77,10 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.dtpDateFrom);
+            this.panel1.Controls.Add(this.dtpDateTo);
             this.panel1.Controls.Add(this.cmbState);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.txtBoxDateTo);
-            this.panel1.Controls.Add(this.txtBoxDateFrom);
             this.panel1.Controls.Add(this.txtBoxOrderID);
             this.panel1.Controls.Add(this.btnResetFilters);
             this.panel1.Controls.Add(this.btnFilter);
@@ -89,6 +89,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(811, 50);
             this.panel1.TabIndex = 1;
+            // 
+            // cmbState
+            // 
+            this.cmbState.FormattingEnabled = true;
+            this.cmbState.Items.AddRange(new object[] {
+            "Pending",
+            "Processing",
+            "Complete"});
+            this.cmbState.Location = new System.Drawing.Point(392, 16);
+            this.cmbState.Name = "cmbState";
+            this.cmbState.Size = new System.Drawing.Size(121, 21);
+            this.cmbState.TabIndex = 4;
             // 
             // label1
             // 
@@ -99,22 +111,6 @@
             this.label1.Size = new System.Drawing.Size(56, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Filters:";
-            // 
-            // txtBoxDateTo
-            // 
-            this.txtBoxDateTo.Location = new System.Drawing.Point(286, 16);
-            this.txtBoxDateTo.Name = "txtBoxDateTo";
-            this.txtBoxDateTo.Size = new System.Drawing.Size(100, 20);
-            this.txtBoxDateTo.TabIndex = 3;
-            this.txtBoxDateTo.Text = "MM/DD/YYYY";
-            // 
-            // txtBoxDateFrom
-            // 
-            this.txtBoxDateFrom.Location = new System.Drawing.Point(180, 16);
-            this.txtBoxDateFrom.Name = "txtBoxDateFrom";
-            this.txtBoxDateFrom.Size = new System.Drawing.Size(100, 20);
-            this.txtBoxDateFrom.TabIndex = 2;
-            this.txtBoxDateFrom.Text = "MM/DD/YYYY";
             // 
             // txtBoxOrderID
             // 
@@ -286,18 +282,6 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // cmbState
-            // 
-            this.cmbState.FormattingEnabled = true;
-            this.cmbState.Items.AddRange(new object[] {
-            "Pending",
-            "Processing",
-            "Complete"});
-            this.cmbState.Location = new System.Drawing.Point(392, 16);
-            this.cmbState.Name = "cmbState";
-            this.cmbState.Size = new System.Drawing.Size(121, 21);
-            this.cmbState.TabIndex = 4;
-            // 
             // panel4
             // 
             this.panel4.Controls.Add(this.label4);
@@ -317,6 +301,24 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(787, 2);
             this.label4.TabIndex = 4;
+            // 
+            // dtpDateFrom
+            // 
+            this.dtpDateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpDateFrom.Location = new System.Drawing.Point(180, 16);
+            this.dtpDateFrom.Name = "dtpDateFrom";
+            this.dtpDateFrom.ShowCheckBox = true;
+            this.dtpDateFrom.Size = new System.Drawing.Size(100, 20);
+            this.dtpDateFrom.TabIndex = 5;
+            // 
+            // dtpDateTo
+            // 
+            this.dtpDateTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpDateTo.Location = new System.Drawing.Point(286, 16);
+            this.dtpDateTo.Name = "dtpDateTo";
+            this.dtpDateTo.ShowCheckBox = true;
+            this.dtpDateTo.Size = new System.Drawing.Size(100, 20);
+            this.dtpDateTo.TabIndex = 5;
             // 
             // PrimaryForm
             // 
@@ -347,8 +349,6 @@
 
         private System.Windows.Forms.DataGridView dgvOrderList;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TextBox txtBoxDateTo;
-        private System.Windows.Forms.TextBox txtBoxDateFrom;
         private System.Windows.Forms.TextBox txtBoxOrderID;
         private System.Windows.Forms.Button btnResetFilters;
         private System.Windows.Forms.Button btnFilter;
@@ -370,6 +370,8 @@
         private System.Windows.Forms.ComboBox cmbState;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DateTimePicker dtpDateFrom;
+        private System.Windows.Forms.DateTimePicker dtpDateTo;
     }
 }
 
