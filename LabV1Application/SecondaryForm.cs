@@ -134,6 +134,7 @@ namespace LabV1Application
                 pckListTmp.AddPackage(new Package(itmName, itmPrice, itmCount));
             }
 
+
             PrimaryForm.orderTmp = new Order(idTmp, orderDateTmp, requiredDateTmp, stTmp, cstTmp, pckListTmp, shipTmp, frgtTmp, dateShipped);
         }
 

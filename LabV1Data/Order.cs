@@ -182,6 +182,8 @@ namespace LabV1Data
             return condition1 && condition2 && IsInTimeFrame(dateFromTmp, dateToTmp);
         }
 
+
+
         public static State ConvertStringToState(string statusTmp)
         {
             State toReturn = State.Pending;

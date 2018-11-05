@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using LabV1Data;
 using System.IO;
 
-
 namespace LabV1Application
 {
     public partial class PrimaryForm : Form
