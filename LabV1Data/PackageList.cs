@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 
 namespace LabV1Data
@@ -57,7 +58,17 @@ namespace LabV1Data
 
         public void AddPackage(Package p)
         {
-            _packageList.Add(p);
+            try
+            {
+                if (p != null)
+                    _packageList.Add(p);
+                else
+                    throw new Exception("Pokusaj dodavanja null Package u PackageList");
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show(exc.Message, "Greska pri izvrsenju", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void SaveToFile(StreamWriter file)

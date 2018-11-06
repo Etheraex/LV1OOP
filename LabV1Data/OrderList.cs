@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-
+using System.Windows.Forms;
 
 namespace LabV1Data
 {
     public class OrderList
     {
-        #region Date
+        #region Data
 
         private List<Order> _orderList;
 
@@ -32,14 +32,24 @@ namespace LabV1Data
             _orderList = new List<Order>();
         }
 
-        public void AddOrder(Order o)
-        {
-            _orderList.Add(o);
-        }
-
         #endregion
 
         #region Methods
+
+        public void AddOrder(Order o)
+        {
+            try
+            {
+                if (o != null)
+                    _orderList.Add(o);
+                else
+                    throw new Exception("Pokusaj dodavanja null objekta u OrderList");
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, "Greska pri izvrsenju", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         public void LoadFromFile(StreamReader file)
         {
@@ -63,7 +73,17 @@ namespace LabV1Data
 
         public void RemoveOrderAt(int index)
         {
-            _orderList.RemoveAt(index);
+            try
+            {
+                if (index < _orderList.Count)
+                    _orderList.RemoveAt(index);
+                else
+                    throw new Exception("Pokusaj brisanja objekta sa nevalidnim indexom u OrderList");
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show(exc.Message, "Greska pri izvrsenju", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void RemoveAllOrders()
@@ -82,11 +102,22 @@ namespace LabV1Data
             }
         }
 
-        public void ReplaceItem(int i, Order o)
+        public void ReplaceOrder(int i, Order o)
         {
-            _orderList[i] = o;
+            try
+            {
+                if (i < _orderList.Count && o != null)
+                    _orderList[i] = o;
+                else
+                    throw new Exception("Greska pri izmeni Order-a u listi");
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, "Greska pri izvrsenju", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         #endregion
-        }
+
     }
+}

@@ -151,19 +151,25 @@ namespace LabV1Data
         
         public override string ToString()
         {
-            return _orderId + " " + _purchasedOn.ToString("d.M.yyyy") + " " + _requiredBefore.ToString("d.M.yyyy") + " " + _status + "\r\n"+ _shippedOn.ToString("d.M.yyyy") + "\r\n" + _shippingCo + "\r\n" + _freightCharges;
+            if(_freightCharges != 0 && _shippedOn != DateTime.MinValue)
+                return _orderId + " " + _purchasedOn.ToString("d.M.yyyy") + " " + _requiredBefore.ToString("d.M.yyyy") + " " + _status + "\r\n"+ _shippedOn.ToString("d.M.yyyy") + "\r\n" + _shippingCo + "\r\n" + _freightCharges;
+            else
+                return _orderId + " " + _purchasedOn.ToString("d.M.yyyy") + " " + _requiredBefore.ToString("d.M.yyyy") + " " + _status + "\r\n" + "\r\n" + _shippingCo + "\r\n" ;
         }
 
         public bool IsInTimeFrame(DateTime dateFromTmp, DateTime dateToTmp)
         {
             return ( (_purchasedOn >= dateFromTmp) && (_purchasedOn <= dateToTmp) ) ? true : false;
         }
-
+        
         public bool CheckId(int x)
         {
             return (_orderId == x) ? true : false;
         }
 
+        // Jedna funkcija koja obuhvata sve provere prilikom filtriranja ordera
+        // ukoliko je neki od prosledjenih parametara null za tu kategoriju propusta sve
+        // postojece vrednosti tj ukoliko jedan od filtera nije postavljen
         public bool IsEqual(int idTmp,DateTime dateFromTmp,DateTime dateToTmp, Object statusObj)
         {
             bool condition1 = true;
@@ -182,8 +188,6 @@ namespace LabV1Data
             return condition1 && condition2 && IsInTimeFrame(dateFromTmp, dateToTmp);
         }
 
-
-
         public static State ConvertStringToState(string statusTmp)
         {
             State toReturn = State.Pending;
@@ -199,7 +203,7 @@ namespace LabV1Data
                     toReturn = State.Complete;
                     break;
                 default:
-                    break;
+                    throw new Exception("Nedefinisana vrednost za Status!");
             }
             return toReturn;
         }
@@ -214,60 +218,65 @@ namespace LabV1Data
 
         public static Order ReadOrderFromFile(System.IO.StreamReader file)
         {
-            String skip = file.ReadLine();
-            String loadString = file.ReadLine();
-            String[] splitStrings = loadString.Split(' ');
+            try
+            {
+                String skip = file.ReadLine();                  // Linija sa znakovima jednakosti za razdvajanje pojedinacnih ordera
+                String loadString = file.ReadLine();
+                String[] splitStrings = loadString.Split(' ');
 
-            int idTmp = CheckId(splitStrings[0]);
-            DateTime dateTmp = DateTimeFromString(splitStrings[1]);
-            DateTime dateReqTmp = DateTimeFromString(splitStrings[2]);
-            
-            State statusTmp = Order.ConvertStringToState(splitStrings[3]);
-            
-            DateTime dateShipped;
-            double freightCostTmp;
-            
-            if (!DateTime.TryParseExact(file.ReadLine(), "d.M.yyyy", null, DateTimeStyles.None, out dateShipped))
-                dateShipped = DateTime.MinValue;
+                int idTmp;
+                int tmp = CheckId(splitStrings[0]);
+                if (tmp == 0)
+                    throw new Exception("Pogresna id vrednost");
+                else
+                    idTmp = tmp;
 
-            String shipCompanyTmp = file.ReadLine();
-            if (!double.TryParse(file.ReadLine(), out freightCostTmp))
-                freightCostTmp = 0;
+                DateTime dateTmp = DateTimeFromString(splitStrings[1]);
+                DateTime dateReqTmp = DateTimeFromString(splitStrings[2]);
 
-            Customer customerTmp = Customer.ReadFromFile(file);
-            PackageList packagesTmp = PackageList.ReadFromFile(file);
+                if (dateTmp == DateTime.MinValue || dateReqTmp == DateTime.MinValue || dateReqTmp < dateTmp)
+                    throw new Exception("Pogresna vrednost datuma");
 
-            Order orderTmp = new Order(idTmp, dateTmp,dateReqTmp , statusTmp, customerTmp, packagesTmp, shipCompanyTmp, freightCostTmp, dateShipped);
-            return orderTmp;
+                State statusTmp = Order.ConvertStringToState(splitStrings[3]);
+
+                DateTime dateShipped;
+                double freightCostTmp;
+
+                if (!DateTime.TryParseExact(file.ReadLine(), "d.M.yyyy", null, DateTimeStyles.None, out dateShipped))
+                    dateShipped = DateTime.MinValue;
+
+                String shipCompanyTmp = file.ReadLine();
+                if (!double.TryParse(file.ReadLine(), out freightCostTmp))
+                    freightCostTmp = 0;
+
+                Customer customerTmp = Customer.ReadFromFile(file);
+                PackageList packagesTmp = PackageList.ReadFromFile(file);
+
+                Order orderTmp = new Order(idTmp, dateTmp, dateReqTmp, statusTmp, customerTmp, packagesTmp, shipCompanyTmp, freightCostTmp, dateShipped);
+                return orderTmp;
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show(exc.Message, "Greska pri izvrsenju", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
         }
 
         public static DateTime DateTimeFromString(String input)
         {
-            DateTime output = DateTime.MinValue;
-            try
-            {
-                if (!DateTime.TryParseExact(input, "d.M.yyyy", null, DateTimeStyles.None, out output))
-                    throw new Exception("Pogresan input string za datum!");
-            }
-            catch(Exception e)
-            {
-                MessageBox.Show(e.Message, "Error");
-            }
+            DateTime output;
+            if (!DateTime.TryParseExact(input, "d.M.yyyy", null, DateTimeStyles.None, out output))
+                output = DateTime.MinValue;
             return output;
         }
 
+        // Provera validnosti zadate vrednosti za ID
+        // vraca ucitanu vrednost u int obliku ukoliko ima tacno 8 karaktera
         public static int CheckId(String input)
         {
-            int output = 0;
-            try
-            {
-                if (input.Length != 8 || !int.TryParse(input, out output))
-                    throw new Exception("Pogresan input za Order ID");
-            }
-            catch(Exception e)
-            {
-                MessageBox.Show(e.Message,"Error");
-            }
+            int output;
+            if (input.Length != 8 || !int.TryParse(input, out output))
+                output = 0;
             return output;
         }
 

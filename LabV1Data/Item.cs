@@ -11,11 +11,14 @@ namespace LabV1Data
     public class Item
     {
         #region Data
+
         private String _name;
         private double _price;
+
         #endregion
 
         #region Properties
+
         public String ItemName
         {
             get { return _name; }
