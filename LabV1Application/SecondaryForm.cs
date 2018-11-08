@@ -56,9 +56,9 @@ namespace LabV1Application
                 txtBoxFreightCharges.Text = OrderList.SingleInstance.Orders[selectedData].FreightCharges.ToString();
 
             rchTxtBoxCustomer.Text = OrderList.SingleInstance.Orders[selectedData].CustomerInfo;
-            dgvPackageList.DataSource = OrderList.SingleInstance.Orders[selectedData].PackageInfo;
+            dgvPackageList.DataSource = OrderList.SingleInstance.Orders[selectedData].PackageInfo.Packages;
 
-            if(OrderList.SingleInstance.Orders[selectedData].ShippedDate != DateTime.MinValue.ToString("d.M.yyyy"))
+            if (OrderList.SingleInstance.Orders[selectedData].ShippedDate != DateTime.MinValue.ToString("d.M.yyyy"))
                 txtBoxDateShipped.Text = OrderList.SingleInstance.Orders[selectedData].ShippedDate;
         }
 
@@ -169,6 +169,5 @@ namespace LabV1Application
             }
             return successful;
         }
-
     }
 }

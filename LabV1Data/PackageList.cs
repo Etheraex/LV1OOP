@@ -89,6 +89,11 @@ namespace LabV1Data
             return new PackageList(packagesTmp);
         }
 
+        public Package ReturnPackage(int x)
+        {
+            return _packageList[x];
+        }
+
         #endregion
     }
 }

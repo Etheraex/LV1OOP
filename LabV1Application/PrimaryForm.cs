@@ -21,6 +21,8 @@ namespace LabV1Application
         public PrimaryForm()
         {
             InitializeComponent();
+            dtpDateFrom.Checked = false;
+            dtpDateTo.Checked = false;
         }
 
         #endregion
@@ -189,14 +191,21 @@ namespace LabV1Application
         // Ucitavanje celog fajla u listu i prikaz u datagrid 
         private void btnImportList_Click(object sender, EventArgs e)
         {
-            OrderList.SingleInstance.RemoveAllOrders();
             DialogResult dr = openFileDialog1.ShowDialog();
-            if(dr == DialogResult.OK)
+            if (dr == DialogResult.OK)
+            {
+                if (dgvOrderList.Rows.Count != 0)
+                {
+                    dr = MessageBox.Show("Nadovezati na postojece podatke?", "Question", MessageBoxButtons.YesNo);
+                    if (dr == DialogResult.No)
+                        OrderList.SingleInstance.RemoveAllOrders();
+                }
                 using (StreamReader file = new StreamReader(openFileDialog1.FileName))
                 {
                     OrderList.SingleInstance.LoadFromFile(file);
                     dgvOrderList.DataSource = OrderList.SingleInstance.Orders.ToList();
                 }
+            }
         }
 
         // Ispisivanje celog trenutnog datagrida u fajl
@@ -264,5 +273,11 @@ namespace LabV1Application
         }
 
         #endregion
+
+        private void PrimaryForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Da li ste sigurni?", "Question", MessageBoxButtons.YesNo);
+            e.Cancel = (dr == DialogResult.No);
+        }
     }
 }

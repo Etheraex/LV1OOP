@@ -106,9 +106,9 @@ namespace LabV1Data
         }
 
         [Browsable(false)]
-        public List<Package> PackageInfo
+        public PackageList PackageInfo
         {
-            get { return _packages.Packages; }
+            get { return _packages; }
         }
 
         [Browsable(false)]

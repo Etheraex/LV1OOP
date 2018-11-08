@@ -30,6 +30,8 @@
         {
             this.dgvOrderList = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dtpDateFrom = new System.Windows.Forms.DateTimePicker();
+            this.dtpDateTo = new System.Windows.Forms.DateTimePicker();
             this.cmbState = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtBoxOrderID = new System.Windows.Forms.TextBox();
@@ -51,8 +53,6 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.dtpDateFrom = new System.Windows.Forms.DateTimePicker();
-            this.dtpDateTo = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrderList)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -89,6 +89,24 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(811, 50);
             this.panel1.TabIndex = 1;
+            // 
+            // dtpDateFrom
+            // 
+            this.dtpDateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpDateFrom.Location = new System.Drawing.Point(180, 16);
+            this.dtpDateFrom.Name = "dtpDateFrom";
+            this.dtpDateFrom.ShowCheckBox = true;
+            this.dtpDateFrom.Size = new System.Drawing.Size(100, 20);
+            this.dtpDateFrom.TabIndex = 5;
+            // 
+            // dtpDateTo
+            // 
+            this.dtpDateTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpDateTo.Location = new System.Drawing.Point(286, 16);
+            this.dtpDateTo.Name = "dtpDateTo";
+            this.dtpDateTo.ShowCheckBox = true;
+            this.dtpDateTo.Size = new System.Drawing.Size(100, 20);
+            this.dtpDateTo.TabIndex = 5;
             // 
             // cmbState
             // 
@@ -302,24 +320,6 @@
             this.label4.Size = new System.Drawing.Size(787, 2);
             this.label4.TabIndex = 4;
             // 
-            // dtpDateFrom
-            // 
-            this.dtpDateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDateFrom.Location = new System.Drawing.Point(180, 16);
-            this.dtpDateFrom.Name = "dtpDateFrom";
-            this.dtpDateFrom.ShowCheckBox = true;
-            this.dtpDateFrom.Size = new System.Drawing.Size(100, 20);
-            this.dtpDateFrom.TabIndex = 5;
-            // 
-            // dtpDateTo
-            // 
-            this.dtpDateTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDateTo.Location = new System.Drawing.Point(286, 16);
-            this.dtpDateTo.Name = "dtpDateTo";
-            this.dtpDateTo.ShowCheckBox = true;
-            this.dtpDateTo.Size = new System.Drawing.Size(100, 20);
-            this.dtpDateTo.TabIndex = 5;
-            // 
             // PrimaryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -333,6 +333,7 @@
             this.MinimumSize = new System.Drawing.Size(827, 450);
             this.Name = "PrimaryForm";
             this.Text = "PrimaryForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PrimaryForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrderList)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
